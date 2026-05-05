@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#8B0000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Relativismo IAP - UCSHCF | Conocimiento II | Fisioterapia y Terapia Ocupacional</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --blanco: #FFFFFF;
+            --verde-olivo: #556B2F;
+            --vinotinto: #8B0000;
+            --gris-claro: #f5f7fa;
+            --texto-oscuro: #1a1a2e;
+            --dorado: #D4AF37;
+            --azul-info: #e3f2fd;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--gris-claro);
+            margin: 0;
+            padding: 12px;
+            color: var(--texto-oscuro);
+        }
+        .dashboard {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: var(--blanco);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        /* Encabezado Universidad */
+        .header-universidad {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 4px solid var(--vinotinto);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--blanco) 0%, #fff5f0 100%);
+            border-radius: 16px 16px 0 0;
+        }
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-ucshcf { width: 70px; height: 70px; background: var(--vinotinto); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .logo-text { font-size: 32px; }
+        .universidad-nombre h2 { color: var(--vinotinto); font-size: 1rem; margin: 0; }
+        .universidad-nombre h1 { color: var(--verde-olivo); font-size: 1.3rem; margin: 0; }
+        .docente-info { text-align: right; border-left: 3px solid var(--dorado); padding-left: 15px; }
+        .docente-info p { margin: 2px 0; font-size: 0.8rem; }
+        .docente-info strong { color: var(--vinotinto); }
+        
+        /* Pestañas */
+        .tabs-didacticas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 20px 0 15px;
+            border-bottom: 2px solid var(--verde-olivo);
+            padding-bottom: 8px;
+        }
+        .tab-btn {
+            background: #e9ecef;
+            color: var(--texto-oscuro);
+            padding: 8px 20px;
+            border-radius: 30px 30px 0 0;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            transition: 0.2s;
+        }
+        .tab-btn.activa {
+            background: var(--vinotinto);
+            color: white;
+        }
+        .tab-contenido {
+            display: none;
+            background: #fefefe;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        .tab-contenido.activa { display: block; }
+        
+        /* Tarjetas y paneles */
+        .card-didactica {
+            background: white;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--vinotinto);
+        }
+        .card-didactica h3 { color: var(--vinotinto); margin-bottom: 12px; }
+        .grid-2cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        
+        /* Instrucciones flotantes */
+        .instrucciones-flotantes {
+            background: var(--azul-info);
+            border-left: 6px solid var(--vinotinto);
+            padding: 16px;
+            margin: 15px 0;
+            border-radius: 16px;
+        }
+        .instrucciones-flotantes h4 { color: var(--vinotinto); margin-bottom: 10px; }
+        .instrucciones-flotantes ol, .instrucciones-flotantes ul { margin-left: 20px; }
+        .instrucciones-flotantes li { margin: 5px 0; }
+        
+        /* Tabla */
+        .table-wrapper { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th, td { border: 1px solid #ccc; padding: 12px 8px; vertical-align: top; min-width: 170px; }
+        th { background: var(--verde-olivo); color: white; font-weight: 600; }
+        td[contenteditable="true"] { background: #fffef0; transition: 0.1s; }
+        td[contenteditable="true"]:hover { background: #fff0b5; }
+        
+        /* Referencias */
+        .referencias-apa {
+            background: #f0f0e8;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 20px 0;
+            border-left: 6px solid var(--vinotinto);
+        }
+        .referencias-apa textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid var(--verde-olivo);
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            resize: vertical;
+        }
+        
+        /* Fuentes confiables */
+        .fuentes-confiables {
+            background: #e8f0e8;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 20px 0;
+            border-left: 6px solid var(--dorado);
+        }
+        .fuentes-confiables h3 { color: var(--verde-olivo); margin-bottom: 10px; }
+        .fuentes-confiables ul { margin-left: 20px; }
+        .fuentes-confiables li { margin: 8px 0; }
+        
+        /* Botones y formularios */
+        .grupo-panel, .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 15px 0;
+            padding: 12px;
+            background: var(--gris-claro);
+            border-radius: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        button {
+            background: var(--verde-olivo);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+            font-size: 0.8rem;
+        }
+        button:hover { background: var(--vinotinto); transform: scale(1.02); }
+        .ia-btn { background: #4a2f6d; }
+        select, input, textarea {
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid var(--verde-olivo);
+            font-family: inherit;
+        }
+        .score-panel {
+            background: linear-gradient(135deg, var(--verde-olivo), var(--vinotinto));
+            color: white;
+            border-radius: 60px;
+            padding: 8px 20px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* Autoevaluación */
+        .rubrica-table { width: 100%; border-collapse: collapse; }
+        .rubrica-table th, .rubrica-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        .rubrica-table td:first-child { text-align: left; background: #f9f9f9; }
+        
+        /* Chat */
+        .chat-container { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px; }
+        .chat-box { flex: 2; min-width: 250px; border: 1px solid var(--verde-olivo); border-radius: 20px; background: white; height: 280px; display: flex; flex-direction: column; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 10px; font-size: 0.8rem; }
+        .chat-input-area { display: flex; padding: 8px; border-top: 1px solid #ddd; gap: 8px; }
+        .chat-input-area input { flex: 1; }
+        .peer-info { flex: 1; min-width: 200px; background: #f9f9f9; border-radius: 20px; padding: 12px; border: 1px solid var(--verde-olivo); }
+        .message { margin-bottom: 8px; padding: 5px 10px; border-radius: 18px; background: #e9ecef; }
+        .message strong { color: var(--vinotinto); }
+        
+        .footer { margin-top: 20px; text-align: center; font-size: 0.7rem; color: #6c757d; padding-top: 15px; border-top: 1px solid #eee; }
+        @media (max-width: 700px) { .header-universidad, .toolbar, .grupo-panel { flex-direction: column; text-align: center; } }
+    </style>
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+</head>
+<body>
+<div class="dashboard">
+    <!-- ==================== ENCABEZADO ==================== -->
+    <div class="header-universidad">
+        <div class="logo-area">
+            <div class="logo-ucshcf"><span class="logo-text">🏥</span></div>
+            <div class="universidad-nombre">
+                <h2>Universidad de Ciencias de la Salud</h2>
+                <h1>Hugo Chávez Frías</h1>
+                <p style="font-size:0.7rem;">Ciencia, Conciencia, Transformación</p>
+            </div>
+        </div>
+        <div class="docente-info">
+            <p><strong>📚 Unidad Curricular:</strong> Conocimiento II</p>
+            <p><strong>👩‍🏫 Docente Investigador:</strong> Lic. Janeth Pavique</p>
+            <p><strong>📅 IAP Transformadora | PSIET</strong></p>
+        </div>
+    </div>
+
+    <!-- ==================== DATOS DEL GRUPO ==================== -->
+    <div class="grupo-panel">
+        <div><label>📌 Grupo (1 al 14):</label> <select id="grupoSelect">
+            <option value="G1">G1</option><option value="G2">G2</option><option value="G3">G3</option>
+            <option value="G4">G4</option><option value="G5">G5</option><option value="G6">G6</option>
+            <option value="G7">G7</option><option value="G8">G8</option><option value="G9">G9</option>
+            <option value="G10">G10</option><option value="G11">G11</option><option value="G12">G12</option>
+            <option value="G13">G13</option><option value="G14">G14</option>
+        </select></div>
+        <div><label>📖 PNF:</label> <input type="text" id="pnfInput" placeholder="Fisioterapia / Terapia Ocupacional" size="25"></div>
+        <div style="flex:2"><label>👥 Integrantes (nombres completos):</label> <textarea id="integrantesInput" rows="2" placeholder="Ej: 1. Ana Pérez García&#10;2. Luis Rodríguez Martínez&#10;3. María Fernández López" style="width:100%"></textarea></div>
+        <div class="score-panel"><span>🏆 Puntaje: <strong id="puntajeEquipo">0</strong></span><span>🎖️ <span id="insigniaEquipo">🌱 Explorador</span></span></div>
+    </div>
+
+    <!-- ==================== INSTRUCCIONES FLOTANTES (siempre visibles) ==================== -->
+    <div class="instrucciones-flotantes">
+        <h4>📋 ¿Cómo tener éxito en esta actividad? (Lee antes de empezar)</h4>
+        <ol>
+            <li><strong>Identifica tu grupo:</strong> Selecciona el número de grupo (G1 al G14) y escribe los nombres de todos los integrantes arriba.</li>
+            <li><strong>Completa el cuadro comparativo:</strong> Haz clic en cada celda vacía y escribe. Usa el botón <strong style="background:#4a2f6d; color:white; padding:2px 8px; border-radius:20px;">✨ IA sugiere</strong> si te atascas.</li>
+            <li><strong>Consulta el ejemplo:</strong> Ve a la pestaña <strong>"📚 Ejemplos FT/TO"</strong> para ver cómo llenar cada columna.</li>
+            <li><strong>Copia las referencias:</strong> Al final de esta página encontrarás un bloque con <strong>Fuentes Confiables y Referencias APA</strong>. Cópialas al campo de referencias.</li>
+            <li><strong>Conecta con tu PSIET:</strong> La última columna de cada fila debe relacionar el tema con tu proyecto.</li>
+            <li><strong>Autoevalúate:</strong> Usa la pestaña <strong>"✅ Autoevaluación"</strong> para reflexionar sobre tu aprendizaje.</li>
+            <li><strong>Entrega:</strong> Presiona <strong>📄 Informe APA</strong> y sube el archivo .txt generado a la plataforma educativa.</li>
+        </ol>
+    </div>
+
+    <!-- ==================== PESTAÑAS ==================== -->
+    <div class="tabs-didacticas">
+        <div class="tab-btn activa" data-tab="tab-cuadro">📊 Cuadro Comparativo</div>
+        <div class="tab-btn" data-tab="tab-autoevaluacion">✅ Autoevaluación</div>
+        <div class="tab-btn" data-tab="tab-psiet">🎯 Conexión PSIET</div>
+        <div class="tab-btn" data-tab="tab-faq">❓ Preguntas Frecuentes</div>
+        <div class="tab-btn" data-tab="tab-ejemplos">📚 Ejemplos FT/TO</div>
+        <div class="tab-btn" data-tab="tab-mapas">🗺️ Mapa Conceptual</div>
+        <div class="tab-btn" data-tab="tab-checklist">✅ Checklist</div>
+    </div>
+
+    <!-- ==================== PESTAÑA 1: CUADRO COMPARATIVO ==================== -->
+    <div id="tab-cuadro" class="tab-contenido activa">
+        <div class="toolbar">
+            <div class="btn-group">
+                <button id="exportarAPA">📄 Informe APA</button>
+                <button id="exportarBackup">💾 Respaldo (.json)</button>
+                <button id="importarBackup">📂 Restaurar respaldo</button>
+                <button id="limpiarTodo">🧹 Resetear grupo</button>
+                <button id="ejemploDocente">🎓 Ejemplo completo</button>
+                <button id="sugerirIA" class="ia-btn">✨ IA sugiere contenido</button>
+            </div>
+        </div>
+        
+        <div class="table-wrapper">
+            <table id="tablaRelativismo">
+                <thead>
+                    <tr>
+                        <th>Corriente</th>
+                        <th>🔮 Ontología<br>(realidades múltiples)</th>
+                        <th>📖 Epistemología<br>(sujeto-objeto / teoría-práctica)</th>
+                        <th>🤝 Axiología<br>(valores del investigador)</th>
+                        <th>⚙️ Metodología<br>(cómo investigar)</th>
+                        <th>🧩 Controversias internas</th>
+                        <th>📎 Evidencias / Autores clave</th>
+                        <th>⭐ Reflexión FT/TO</th>
+                        <th>🎯 PSIET del grupo</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBody"></tbody>
+            </table>
+        </div>
+        
+        <!-- REFERENCIAS APA -->
+        <div class="referencias-apa">
+            <h3>📚 REFERENCIAS CONSULTADAS (Normas APA 7ª edición)</h3>
+            <p style="font-size:0.8rem; margin-bottom:8px;">⚠️ <strong>Obligatorio:</strong> Copia aquí las referencias de las fuentes que utilizaste (puedes copiarlas del bloque "Fuentes confiables" más abajo).</p>
+            <textarea id="referenciasAPA" rows="6" placeholder="Ejemplo:
+Geertz, C. (2003). La interpretación de las culturas. Gedisa.
+Blumer, H. (1982). El interaccionismo simbólico: perspectiva y método. Hora.
+Garfinkel, H. (2006). Estudios en etnometodología. Anthropos.
+Nicholls, D. A., & Gibson, B. E. (2010). The body and physiotherapy. Physiotherapy Theory and Practice, 26(6), 367-378.
+Hammell, K. W. (2015). Quality of life among people with back disabilities in rural settings. American Journal of Occupational Therapy, 69(3)."></textarea>
+        </div>
+        
+        <!-- FUENTES CONFIABLES -->
+        <div class="fuentes-confiables">
+            <h3>📖 FUENTES CONFIABLES Y REFERENCIAS RECOMENDADAS</h3>
+            <p><strong>📌 Instrucción:</strong> Copia las siguientes referencias en el campo de arriba siguiendo el formato APA 7ª edición.</p>
+            
+            <h4 style="color: var(--vinotinto); margin-top: 12px;">📚 Libros fundamentales (obligatorios):</h4>
+            <ul>
+                <li>Geertz, C. (2003). <em>La interpretación de las culturas</em>. Gedisa. (Capítulo 1: "Descripción densa")</li>
+                <li>Blumer, H. (1982). <em>El interaccionismo simbólico: perspectiva y método</em>. Hora.</li>
+                <li>Garfinkel, H. (2006). <em>Estudios en etnometodología</em>. Anthropos.</li>
+                <li>Fals Borda, O. (1987). <em>Investigación Acción Participativa</em>. Editorial Punta de Lanza.</li>
+            </ul>
+            
+            <h4 style="color: var(--vinotinto); margin-top: 12px;">📄 Artículos de revisión sistemática (aplicados a salud):</h4>
+            <ul>
+                <li>Nicholls, D. A., & Gibson, B. E. (2010). The body and physiotherapy: Towards a materialist understanding of practice. <em>Physiotherapy Theory and Practice</em>, 26(6), 367-378. <a href="https://doi.org/10.3109/09593980903578661" target="_blank">https://doi.org/10.3109/09593980903578661</a></li>
+                <li>Hammell, K. W. (2015). Quality of life among people with back disabilities in rural settings: A qualitative study. <em>American Journal of Occupational Therapy</em>, 69(3), 1-10. <a href="https://doi.org/10.5014/ajot.2015.014589" target="_blank">https://doi.org/10.5014/ajot.2015.014589</a></li>
+                <li>Kleinman, A. (2012). The art of medicine: The patient's experience of illness. <em>The Lancet</em>, 379(9812), 233-234. <a href="https://doi.org/10.1016/S0140-6736(12)60093-5" target="_blank">https://doi.org/10.1016/S0140-6736(12)60093-5</a></li>
+            </ul>
+            
+            <h4 style="color: var(--vinotinto); margin-top: 12px;">🔗 Revistas científicas de acceso abierto:</h4>
+            <ul>
+                <li><strong>Cadernos de Terapia Ocupacional da UFSCar (Brasil):</strong> <a href="https://www.cadernosdeterapiaocupacional.ufscar.br" target="_blank">https://www.cadernosdeterapiaocupacional.ufscar.br</a></li>
+                <li><strong>Revista de Investigación en Fisioterapia (España):</strong> Buscar en <a href="https://dialnet.unirioja.es" target="_blank">Dialnet</a></li>
+                <li><strong>Qualitative Health Research (Sage):</strong> <a href="https://journals.sagepub.com/home/qhr" target="_blank">https://journals.sagepub.com/home/qhr</a></li>
+            </ul>
+            
+            <h4 style="color: var(--vinotinto); margin-top: 12px;">🎓 Autores clave para profundizar:</h4>
+            <ul>
+                <li>Arthur Kleinman (antropología médica) - <em>The Illness Narratives</em> (1988)</li>
+                <li>Donna Haraway (saberes situados) - <em>Ciencia, cyborgs y mujeres</em> (1991)</li>
+                <li>Orlando Fals Borda (IAP) - <em>Investigación Acción Participativa</em> (1987)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 2: AUTOEVALUACIÓN ==================== -->
+    <div id="tab-autoevaluacion" class="tab-contenido">
+        <div class="card-didactica">
+            <h3>📝 Rúbrica de autoevaluación</h3>
+            <p>Marca tu nivel de logro en cada criterio. Esto te ayudará a identificar qué mejorar antes de entregar.</p>
+            <div id="autoevaluacion-container"></div>
+            <button id="guardarAutoevaluacion" style="margin-top:15px;">💾 Guardar autoevaluación</button>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 3: CONEXIÓN PSIET ==================== -->
+    <div id="tab-psiet" class="tab-contenido">
+        <div class="card-didactica">
+            <h3>🎯 Conecta tu PSIET con el Relativismo</h3>
+            <p>Responde estas preguntas para aplicar cada corriente a tu proyecto de investigación.</p>
+            <div id="psiet-preguntas"></div>
+            <button id="guardarRespuestasPSIET" style="margin-top:15px;">💾 Guardar respuestas</button>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 4: FAQ ==================== -->
+    <div id="tab-faq" class="tab-contenido">
+        <div class="card-didactica">
+            <h3>❓ Preguntas Frecuentes sobre Relativismo</h3>
+            <div id="faq-container"></div>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 5: EJEMPLOS FT/TO ==================== -->
+    <div id="tab-ejemplos" class="tab-contenido">
+        <div class="card-didactica">
+            <h3>📚 Ejemplos de cómo llenar el cuadro comparativo</h3>
+            <p><strong>🔎 ETNOGRAFÍA - Ejemplo de contenido para cada columna:</strong></p>
+            <ul>
+                <li><strong>Ontología:</strong> "Realidades múltiples. El dolor y la funcionalidad se construyen según la cultura y el contexto social. No hay una única forma 'correcta' de experimentar el cuerpo."</li>
+                <li><strong>Epistemología:</strong> "Relación dialógica entre investigador y comunidad. El conocimiento emerge de la inmersión y la práctica reflexiva. Teoría desde la práctica."</li>
+                <li><strong>Axiología:</strong> "Respeto por las cosmovisiones locales. No imponer categorías biomédicas como única verdad. Valorar el saber del otro."</li>
+                <li><strong>Metodología:</strong> "Observación participante, entrevistas en profundidad, diario de campo, análisis de narrativas."</li>
+                <li><strong>Controversias:</strong> "¿El etnógrafo puede evitar completamente el etnocentrismo? Debate entre relativismo radical y compromiso ético universal."</li>
+                <li><strong>Evidencias:</strong> "Geertz (2003) - La interpretación de las culturas. Kleinman (2012) - The Lancet."</li>
+                <li><strong>Reflexión FT/TO:</strong> "En fisioterapia: comprender cómo una comunidad rural vive y significa el dolor lumbar crónico."</li>
+                <li><strong>PSIET:</strong> "En mi PSIET sobre [tu tema], la etnografía permite entender las prácticas de curación tradicionales."</li>
+            </ul>
+            <hr style="margin: 15px 0;">
+            <p><strong>💬 INTERACCIONISMO SIMBÓLICO - Ejemplo:</strong></p>
+            <ul>
+                <li><strong>Ontología:</strong> "Realidad simbólica. Los significados que las personas atribuyen a los objetos y acciones guían su comportamiento."</li>
+                <li><strong>Epistemología:</strong> "El investigador interpreta los símbolos y significados que emergen de la interacción social. Subjetividad compartida."</li>
+                <li><strong>Axiología:</strong> "Empatía interpretativa. Dar voz a los significados de los pacientes y terapeutas."</li>
+                <li><strong>Metodología:</strong> "Entrevistas biográficas, historias de vida, observación de interacciones."</li>
+                <li><strong>Controversias:</strong> "¿Individualismo metodológico? ¿Olvido de las estructuras materiales?"</li>
+                <li><strong>Evidencias:</strong> "Blumer (1982) - El interaccionismo simbólico. Goffman (1959) - La presentación de la persona."</li>
+                <li><strong>Reflexión FT/TO:</strong> "En terapia ocupacional: analizar cómo se construye la identidad de 'persona con discapacidad'."</li>
+                <li><strong>PSIET:</strong> "Mi PSIET sobre reinserción laboral: cómo construyen el significado de 'ser útil'."</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 6: MAPA CONCEPTUAL ==================== -->
+    <div id="tab-mapas" class="tab-contenido">
+        <div class="card-didactica">
+            <h3>🗺️ Mapa conceptual del Relativismo</h3>
+            <pre style="background:#f0f0f0; padding:16px; border-radius:16px; overflow-x:auto; font-family:monospace; font-size:12px;">
+                    ┌─────────────────────────────────────────────────────────────┐
+                    │                        RELATIVISMO                           │
+                    │    No hay una verdad universal. Las realidades son           │
+                    │    múltiples, situadas y construidas socialmente.            │
+                    └─────────────────────────┬───────────────────────────────────┘
+                                              │
+                    ┌─────────────────────────┼─────────────────────────────────────┐
+                    │                         │                                     │
+                    ▼                         ▼                                     ▼
+            ┌───────────────┐        ┌─────────────────┐            ┌─────────────────────┐
+            │  ETNOGRAFÍA   │        │ ETNOMETODOLOGÍA │            │ INTERACCIONISMO     │
+            │               │        │                 │            │ SIMBÓLICO           │
+            │ Pregunta:     │        │ Pregunta:       │            │ Pregunta:           │
+            │ ¿Cuál es la   │        │ ¿Cómo construyen│            │ ¿Qué significados   │
+            │ cultura de    │        │ las personas    │            │ construyen en       │
+            │ este grupo?   │        │ orden en su día │            │ la interacción?     │
+            │               │        │ a día?          │            │                     │
+            └───────┬───────┘        └────────┬────────┘            └──────────┬──────────┘
+                    │                         │                                  │
+                    ▼                         ▼                                  ▼
+            ┌───────────────┐        ┌─────────────────┐            ┌─────────────────────┐
+            │ Método:       │        │ Método:         │            │ Método:             │
+            │ Observación   │        │ Análisis de     │            │ Entrevistas         │
+            │ participante  │        │ conversación    │            │ biográficas         │
+            │ Entrevistas   │        │ Grabaciones     │            │ Historias de vida   │
+            │ profundidad   │        │ cotidianas      │            │                     │
+            └───────────────┘        └─────────────────┘            └─────────────────────┘
+                                              │
+                                              ▼
+                    ┌─────────────────────────────────────────────────────────────┐
+                    │         APLICACIÓN EN FISIOTERAPIA Y TERAPIA OCUPACIONAL      │
+                    │  • Escuchar la voz del paciente como saber válido            │
+                    │  • Co-construir terapias basadas en sus significados        │
+                    │  • Transformar la rehabilitación desde el diálogo           │
+                    └─────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+    </div>
+
+    <!-- ==================== PESTAÑA 7: CHECKLIST ==================== -->
+    <div id="tab-checklist" class="tab-contenido">
+        <div class="card-didactica">
+            <h3>✅ Checklist de verificación - Antes de entregar</h3>
+            <div id="checklist-container"></div>
+            <button id="guardarChecklist" style="margin-top:15px;">💾 Guardar checklist</button>
+            <button id="reiniciarChecklist" style="margin-top:15px; background:#6c757d;">🔄 Reiniciar</button>
+        </div>
+    </div>
+
+    <!-- ==================== CHAT COLABORATIVO ==================== -->
+    <div style="margin-top:25px; border-top:2px solid var(--vinotinto); padding-top:20px;">
+        <h3 style="color: var(--vinotinto);">💬 Chat colaborativo entre grupos</h3>
+        <div class="chat-container">
+            <div class="chat-box">
+                <div class="chat-messages" id="chatMessages"><div class="message"><em>Esperando conexión... Comparte tu ID con otro grupo.</em></div></div>
+                <div class="chat-input-area"><input type="text" id="chatInput" placeholder="Escribe un mensaje..."><button id="sendChatBtn">Enviar</button></div>
+            </div>
+            <div class="peer-info">
+                <strong>🔗 Tu ID único (compártelo):</strong><br>
+                <span id="myPeerId" style="font-family: monospace; word-break:break-all;"></span><br><br>
+                <strong>🔌 Conectar a otro grupo:</strong><br>
+                <input type="text" id="remotePeerId" placeholder="ID del otro grupo" style="width:100%"><br>
+                <button id="connectBtn" style="margin-top:6px; width:100%">➕ Conectar</button>
+                <div id="connectionStatus" style="margin-top:10px;">⚪ Desconectado</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        ✅ <strong>Universidad de Ciencias de la Salud Hugo Chávez Frías</strong> | Docente: Lic. Janeth Pavique | Conocimiento II<br>
+        📌 Herramienta diseñada para Investigación Acción Participativa y Transformadora | PSIET integrado<br>
+        💾 Todo se guarda automáticamente | Instala esta app desde el navegador (Android/iOS/PC)
+    </div>
+</div>
+
+<script>
+// ========== VARIABLES GLOBALES ==========
+const corrientes = ["🌿 Etnografía", "🔍 Etnometodología", "💬 Interaccionismo simbólico", "🌀 Análisis integrador del equipo"];
+let tablaBody = document.getElementById("tablaBody");
+let grupoSelect = document.getElementById("grupoSelect");
+let pnfInput = document.getElementById("pnfInput");
+let integrantesInput = document.getElementById("integrantesInput");
+let referenciasAPA = document.getElementById("referenciasAPA");
+
+function getStorageKey() { return "RelativismoUCSHCF_Completo_" + grupoSelect.value; }
+
+// ========== CONSTRUIR TABLA ==========
+function construirTabla() {
+    tablaBody.innerHTML = "";
+    for(let c of corrientes) {
+        let tr = document.createElement("tr");
+        let tdNom = document.createElement("td");
+        tdNom.innerText = c;
+        tdNom.style.fontWeight = "bold";
+        tdNom.style.background = "#e9ecef";
+        tr.appendChild(tdNom);
+        for(let i=0; i<8; i++) {
+            let td = document.createElement("td");
+            td.setAttribute("contenteditable", "true");
+            tr.appendChild(td);
+        }
+        tablaBody.appendChild(tr);
+    }
+}
+
+// ========== GUARDAR Y CARGAR ==========
+function guardarTodo() {
+    let data = [];
+    let filas = tablaBody.querySelectorAll("tr");
+    for(let i=0; i<filas.length; i++) {
+        let celdas = filas[i].querySelectorAll("td[contenteditable='true']");
+        let row = [];
+        celdas.forEach(c => row.push(c.innerHTML));
+        data.push(row);
+    }
+    let meta = {
+        contenido: data,
+        pnf: pnfInput.value,
+        integrantes: integrantesInput.value,
+        referencias: referenciasAPA.value
+    };
+    localStorage.setItem(getStorageKey(), JSON.stringify(meta));
+    actualizarPuntaje();
+}
+
+function cargarStorage() {
+    let saved = localStorage.getItem(getStorageKey());
+    if(saved) {
+        let meta = JSON.parse(saved);
+        pnfInput.value = meta.pnf || "";
+        integrantesInput.value = meta.integrantes || "";
+        referenciasAPA.value = meta.referencias || "";
+        if(meta.contenido) {
+            let filas = tablaBody.querySelectorAll("tr");
+            for(let i=0; i<filas.length && i<meta.contenido.length; i++) {
+                let celdas = filas[i].querySelectorAll("td[contenteditable='true']");
+                for(let j=0; j<celdas.length && j<meta.contenido[i].length; j++) {
+                    celdas[j].innerHTML = meta.contenido[i][j];
+                }
+            }
+        }
+    } else {
+        limpiarCeldas(true);
+    }
+    actualizarPuntaje();
+    cargarAutoevaluacionUI();
+    cargarPSIETUI();
+    cargarChecklistUI();
+}
+
+function actualizarPuntaje() {
+    let celdas = document.querySelectorAll("#tablaBody td[contenteditable='true']");
+    let llenas = 0;
+    celdas.forEach(cd => { if(cd.innerText.trim().length > 20) llenas++; });
+    let porcentaje = Math.floor((llenas / (corrientes.length * 8)) * 100);
+    document.getElementById("puntajeEquipo").innerText = porcentaje;
+    let insignia = "🌱 Explorador";
+    if(porcentaje >= 40) insignia = "📘 Analista";
+    if(porcentaje >= 70) insignia = "🏅 Crítico";
+    if(porcentaje >= 90) insignia = "🌟 Maestre relativista";
+    document.getElementById("insigniaEquipo").innerHTML = insignia;
+}
+
+function limpiarCeldas(sinConfirm = false) {
+    if(!sinConfirm && !confirm("¿Borrar todo el trabajo de este grupo? Esta acción no se puede deshacer.")) return;
+    document.querySelectorAll("#tablaBody td[contenteditable='true']").forEach(c => c.innerHTML = "");
+    pnfInput.value = "";
+    integrantesInput.value = "";
+    referenciasAPA.value = "";
+    guardarTodo();
+    alert("✅ Contenido del grupo limpiado");
+}
+
+// ========== EJEMPLO COMPLETO ==========
+function cargarEjemploCompleto() {
+    const ejemploFilas = [
+        [
+            "Realidades múltiples. El dolor y la funcionalidad se construyen culturalmente. No hay una única forma 'correcta' de experimentar el cuerpo.",
+            "Relación dialógica entre investigador y comunidad. El conocimiento emerge de la inmersión y la práctica reflexiva. Teoría desde la práctica.",
+            "Respeto por las cosmovisiones locales. No imponer categorías biomédicas como única verdad. Valorar el saber del otro.",
+            "Observación participante, entrevistas en profundidad, diario de campo, análisis de narrativas.",
+            "¿El etnógrafo puede evitar completamente el etnocentrismo? Debate entre relativismo radical y compromiso ético universal.",
+            "<strong>Geertz (2003)</strong> - La interpretación de las culturas<br><strong>Kleinman (2012)</strong> - The Lancet",
+            "En fisioterapia: comprender cómo una comunidad rural vive y significa el dolor lumbar crónico.",
+            "En mi PSIET sobre prácticas de curación tradicionales, la etnografía permite entender las concepciones locales de salud-enfermedad."
+        ],
+        [
+            "Realidad como logro práctico cotidiano. El orden social se construye en las interacciones del día a día.",
+            "El investigador estudia los métodos que usan los actores para dar sentido al mundo. Ruptura con el sentido común.",
+            "Neutralidad analítica. Describir sin juzgar las prácticas cotidianas y los razonamientos prácticos.",
+            "Análisis de conversación, grabaciones de interacciones naturales, estudio de casos índice.",
+            "¿Puede la etnometodología dar cuenta de las estructuras de poder? Crítica desde el marxismo.",
+            "<strong>Garfinkel (2006)</strong> - Estudios en etnometodología",
+            "En terapia ocupacional: analizar cómo los pacientes con demencia construyen orden y significado en sus rutinas diarias.",
+            "Mi PSIET sobre adultos mayores institucionalizados: cómo ellos mismos crean métodos para mantener su dignidad."
+        ],
+        [
+            "Realidad simbólica. Los significados que las personas atribuyen a los objetos y acciones guían su comportamiento.",
+            "El investigador interpreta los símbolos y significados que emergen de la interacción social. Subjetividad compartida.",
+            "Empatía interpretativa. Dar voz a los significados de los pacientes y terapeutas.",
+            "Entrevistas biográficas, historias de vida, observación de interacciones, análisis de narrativas.",
+            "¿Individualismo metodológico? ¿Olvido de las estructuras materiales y económicas?",
+            "<strong>Blumer (1982)</strong> - El interaccionismo simbólico<br><strong>Goffman</strong> - La presentación de la persona",
+            "En terapia ocupacional: analizar cómo se construye la identidad de 'persona con discapacidad' en la interacción terapeuta-paciente.",
+            "Mi PSIET sobre reinserción laboral: cómo construyen el significado de 'ser útil' y 'ser independiente'."
+        ],
+        [
+            "Los tres enfoques coinciden en rechazar el realismo ingenuo. Las realidades son múltiples, situadas y construidas.",
+            "Todo conocimiento es situado y parcial (Haraway). La objetividad no es neutralidad sino reflexividad.",
+            "Compromiso ético con la justicia epistémica y la escucha de voces subalternizadas.",
+            "Combinación flexible de métodos cualitativos según el objeto. IAP como horizonte transformador.",
+            "Gran controversia: ¿relativismo radical = imposibilidad de crítica transcultural? ¿Cómo defender derechos humanos sin universalismo?",
+            "<strong>Fals Borda (1987)</strong> - IAP<br><strong>Haraway (1991)</strong> - Saberes situados",
+            "La rehabilitación debe integrar la subjetividad del paciente como saber válido para co-construir terapias significativas.",
+            "Nuestro PSIET integra la mirada etnográfica, etnometodológica e interaccionista para transformar el modelo de atención."
+        ]
+    ];
+    let filas = tablaBody.querySelectorAll("tr");
+    for(let i=0; i<filas.length && i<ejemploFilas.length; i++) {
+        let celdas = filas[i].querySelectorAll("td[contenteditable='true']");
+        for(let j=0; j<celdas.length && j<ejemploFilas[i].length; j++) {
+            celdas[j].innerHTML = ejemploFilas[i][j];
+        }
+    }
+    referenciasAPA.value = `Geertz, C. (2003). La interpretación de las culturas. Gedisa.
+Blumer, H. (1982). El interaccionismo simbólico: perspectiva y método. Hora.
+Garfinkel, H. (2006). Estudios en etnometodología. Anthropos.
+Fals Borda, O. (1987). Investigación Acción Participativa. Editorial Punta de Lanza.
+Nicholls, D. A., & Gibson, B. E. (2010). The body and physiotherapy. Physiotherapy Theory and Practice, 26(6), 367-378.
+Hammell, K. W. (2015). Quality of life among people with back disabilities. American Journal of Occupational Therapy, 69(3).
+Kleinman, A. (2012). The art of medicine: The patient's experience of illness. The Lancet, 379(9812), 233-234.`;
+    guardarTodo();
+    alert("✅ Ejemplo docente completo cargado. Revisa todas las celdas y las referencias.");
+}
+
+// ========== IA SUGIERE ==========
+function sugerirIA() {
+    let celdas = document.querySelectorAll("#tablaBody td[contenteditable='true']");
+    let sugerencias = [
+        "Realidades múltiples, situadas, construidas social y culturalmente. El dolor y la funcionalidad no son universales.",
+        "Relación sujeto-objeto dialógica. El conocimiento emerge de la relación entre investigador y participante. Teoría desde la práctica reflexiva.",
+        "Valores: respeto por la diversidad, justicia epistémica, humildad cultural, escucha activa, compromiso transformador.",
+        "Métodos cualitativos: observación participante, entrevistas en profundidad, grupos focales, análisis de narrativas, historias de vida.",
+        "Controversia principal: ¿relativismo radical o moderado? ¿Cómo decidir entre interpretaciones sin criterios universales?",
+        "Autor clave: Geertz (2003) - 'Descripción densa'. También consultar Blumer (1982) y Garfinkel (2006).",
+        "Reflexión FT/TO: escuchar la experiencia subjetiva del paciente como saber válido para co-construir terapias significativas.",
+        "PSIET: Nuestro tema de investigación se enriquece al comprender que las realidades de nuestros sujetos son múltiples y legítimas."
+    ];
+    let idx = 0;
+    for(let c of celdas) {
+        if(c.innerText.trim() === "") {
+            c.innerHTML = sugerencias[idx % sugerencias.length];
+            idx++;
+        }
+    }
+    guardarTodo();
+    alert("✨ Se completaron las celdas vacías con sugerencias básicas.");
+}
+
+// ========== EXPORTAR INFORME APA ==========
+function exportarAPA() {
+    let contenido = `UNIVERSIDAD DE CIENCIAS DE LA SALUD HUGO CHÁVEZ FRÍAS
+UNIDAD CURRICULAR: CONOCIMIENTO II
+DOCENTE INVESTIGADOR: LIC. JANETH PAVIQUE
+INFORME DE ANÁLISIS - RELATIVISMO Y PSIET
+
+==========================================
+DATOS DEL EQUIPO
+==========================================
+Grupo: ${grupoSelect.value}
+PNF: ${pnfInput.value}
+Integrantes:
+${integrantesInput.value}
+
+==========================================
+CUADRO COMPARATIVO
+==========================================\n`;
+    let filas = tablaBody.querySelectorAll("tr");
+    let titulos = ["Corriente","Ontología","Epistemología","Axiología","Metodología","Controversias","Evidencias","Reflexión FT/TO","PSIET"];
+    for(let i=0; i<filas.length; i++) {
+        let nombre = filas[i].querySelector("td:first-child")?.innerText || "Corriente";
+        contenido += `\n${nombre.toUpperCase()}\n`;
+        let celdas = filas[i].querySelectorAll("td[contenteditable='true']");
+        for(let j=0; j<celdas.length; j++) {
+            let texto = celdas[j].innerText.replace(/<[^>]*>/g, ' ').substring(0, 500);
+            contenido += `${titulos[j+1]}: ${texto}\n`;
+        }
+        contenido += "----------------------------------------\n";
+    }
+    contenido += `\n==========================================
+REFERENCIAS CONSULTADAS (Normas APA 7ª edición)
+==========================================
+${referenciasAPA.value}
+
+==========================================
+FECHA DE ELABORACIÓN
+==========================================
+${new Date().toLocaleString()}
+
+--- Herramienta colaborativa UCSHCF - Conocimiento II ---
+`;
+    let blob = new Blob([contenido], {type: "text/plain;charset=utf-8"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `Informe_Relativismo_${grupoSelect.value}_${new Date().toISOString().slice(0,19)}.txt`;
+    a.click();
+    alert("✅ Informe APA exportado correctamente. Revisa la carpeta de descargas.");
+}
+
+// ========== RESPALDO Y RESTAURACIÓN ==========
+function exportarBackup() {
+    let data = [];
+    let filas = tablaBody.querySelectorAll("tr");
+    for(let i=0; i<filas.length; i++) {
+        let celdas = filas[i].querySelectorAll("td[contenteditable='true']");
+        let row = [];
+        celdas.forEach(c => row.push(c.innerHTML));
+        data.push(row);
+    }
+    let backup = {
+        grupo: grupoSelect.value,
+        contenido: data,
+        pnf: pnfInput.value,
+        integrantes: integrantesInput.value,
+        referencias: referenciasAPA.value,
+        fecha: new Date().toISOString()
+    };
+    let blob = new Blob([JSON.stringify(backup, null, 2)], {type: "application/json"});
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `respaldo_relativismo_${grupoSelect.value}.json`;
+    a.click();
+    alert("✅ Respaldo exportado correctamente.");
+}
+
+function importarBackup() {
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/json";
+    input.onchange = e => {
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.onload = ev => {
+            try {
+                let datos = JSON.parse(ev.target.result);
+                if(datos.contenido) {
+                    let filas = tablaBody.querySelectorAll("tr");
+                    for(let i=0; i<filas.length && i<datos.contenido.length; i++) {
+                        let celdas = filas[i].querySelectorAll("td[contenteditable='true']");
+                        for(let j=0; j<celdas.length && j<datos.contenido[i].length; j++) {
+                            celdas[j].innerHTML = datos.contenido[i][j];
+                        }
+                    }
+                    pnfInput.value = datos.pnf || "";
+                    integrantesInput.value = datos.integrantes || "";
+                    referenciasAPA.value = datos.referencias || "";
+                    guardarTodo();
+                    alert("✅ Respaldo restaurado correctamente.");
+                }
+            } catch(err) { alert("Error al leer el archivo. Asegúrate de que sea un respaldo válido."); }
+        };
+        reader.readAsText(file);
+    };
+    input.click();
+}
+
+// ========== AUTOEVALUACIÓN ==========
+function cargarAutoevaluacionUI() {
+    let container = document.getElementById("autoevaluacion-container");
+    if(!container) return;
+    let criterios = [
+        "Comprendo la ontología relativista (realidades múltiples, situadas, construidas)",
+        "Identifico diferencias entre Etnografía, Etnometodología e Interaccionismo simbólico",
+        "Puedo aplicar el relativismo a mi PSIET",
+        "Reconozco autores clave (Geertz, Garfinkel, Blumer, Fals Borda)",
+        "Entiendo la controversia: relativismo radical vs moderado",
+        "Sé relacionar teoría y práctica en mi profesión (Fisioterapia o Terapia Ocupacional)"
+    ];
+    let html = `<table class="rubrica-table"><tr><th>Criterio</th><th>1 (Básico)</th><th>2 (En desarrollo)</th><th>3 (Logrado)</th><th>4 (Avanzado)</th></tr>`;
+    for(let i=0; i<criterios.length; i++) {
+        html += `<tr><td>${criterios[i]}</td>`;
+        for(let v=1; v<=4; v++) {
+            html += `<td style="text-align:center"><input type="radio" name="auto_${i}" value="${v}"></td>`;
+        }
+        html += `</tr>`;
+    }
+    html += `</table>`;
+    container.innerHTML = html;
+    
+    let saved = localStorage.getItem(getStorageKey() + "_auto");
+    if(saved) {
+        let vals = JSON.parse(saved);
+        for(let i=0; i<vals.length; i++) {
+            let rb = document.querySelector(`input[name="auto_${i}"][value="${vals[i]}"]`);
+            if(rb) rb.checked = true;
+        }
+    }
+}
+
+function guardarAutoevaluacion() {
+    let respuestas = [];
+    for(let i=0; i<6; i++) {
+        let selected = document.querySelector(`input[name="auto_${i}"]:checked`);
+        respuestas.push(selected ? selected.value : "1");
+    }
+    localStorage.setItem(getStorageKey() + "_auto", JSON.stringify(respuestas));
+    alert("✅ Autoevaluación guardada correctamente.");
+}
+
+// ========== PSIET ==========
+function cargarPSIETUI() {
+    let container = document.getElementById("psiet-preguntas");
+    if(!container) return;
+    let preguntas = [
+        "1. ¿Cuál es el TEMA CENTRAL de tu PSIET? (descríbelo en una frase)",
+        "2. ¿Cómo podría la ETNOGRAFÍA ayudarte a entender las realidades culturales de tus participantes?",
+        "3. ¿Qué PRÁCTICAS COTIDIANAS (etnometodología) podrías observar en tu población de estudio?",
+        "4. ¿Qué SIGNIFICADOS SIMBÓLICOS (interaccionismo simbólico) construyen tus participantes sobre salud/enfermedad?",
+        "5. ¿Qué CONTROVERSIA ÉTICA podría surgir al aplicar el relativismo en tu proyecto?",
+        "6. ¿Cómo integrarías estas corrientes para TRANSFORMAR tu práctica profesional en FT/TO?"
+    ];
+    let html = "";
+    for(let i=0; i<preguntas.length; i++) {
+        html += `<div style="margin-bottom:15px;"><strong>${preguntas[i]}</strong><br><textarea id="psiet_${i}" rows="2" style="width:100%; margin-top:5px; padding:10px; border-radius:12px; border:1px solid #ccc;"></textarea></div>`;
+    }
+    container.innerHTML = html;
+    
+    let saved = localStorage.getItem(getStorageKey() + "_psiet");
+    if(saved) {
+        let vals = JSON.parse(saved);
+        for(let i=0; i<vals.length; i++) {
+            let ta = document.getElementById(`psiet_${i}`);
+            if(ta) ta.value = vals[i];
+        }
+    }
+}
+
+function guardarRespuestasPSIET() {
+    let respuestas = [];
+    for(let i=0; i<6; i++) {
+        let ta = document.getElementById(`psiet_${i}`);
+        respuestas.push(ta ? ta.value : "");
+    }
+    localStorage.setItem(getStorageKey() + "_psiet", JSON.stringify(respuestas));
+    alert("✅ Respuestas PSIET guardadas correctamente.");
+}
+
+// ========== CHECKLIST ==========
+function cargarChecklistUI() {
+    let container = document.getElementById("checklist-container");
+    if(!container) return;
+    let items = [
+        "Completé todas las celdas del cuadro comparativo (mínimo 2 líneas por celda)",
+        "Incluí referencias APA 7ª completas en el campo correspondiente",
+        "Registré nombres de todos los integrantes y el PNF",
+        "Mi grupo discutió las controversias (puede ser en el chat o en clase)",
+        "Respondí las preguntas de conexión PSIET en la pestaña correspondiente",
+        "Revisé la ortografía y redacción de todo el contenido",
+        "El informe APA está listo para entregar (botón 📄 Informe APA)"
+    ];
+    let html = "";
+    for(let i=0; i<items.length; i++) {
+        html += `<div class="checkbox-item"><input type="checkbox" id="check_${i}"> <label for="check_${i}">${items[i]}</label></div>`;
+    }
+    container.innerHTML = html;
+    
+    let saved = localStorage.getItem(getStorageKey() + "_check");
+    if(saved) {
+        let vals = JSON.parse(saved);
+        for(let i=0; i<vals.length; i++) {
+            let cb = document.getElementById(`check_${i}`);
+            if(cb) cb.checked = vals[i] === true;
+        }
+    }
+}
+
+function guardarChecklist() {
+    let checks = [];
+    for(let i=0; i<7; i++) {
+        let cb = document.getElementById(`check_${i}`);
+        checks.push(cb ? cb.checked : false);
+    }
+    localStorage.setItem(getStorageKey() + "_check", JSON.stringify(checks));
+    alert("✅ Checklist guardado correctamente.");
+}
+
+function reiniciarChecklist() {
+    for(let i=0; i<7; i++) {
+        let cb = document.getElementById(`check_${i}`);
+        if(cb) cb.checked = false;
+    }
+    guardarChecklist();
+    alert("🔄 Checklist reiniciado.");
+}
+
+// ========== FAQ ==========
+function cargarFAQ() {
+    let container = document.getElementById("faq-container");
+    if(!container) return;
+    let faqs = [
+        {q:"¿Qué diferencia hay entre relativismo y subjetivismo?", a:"El subjetivismo dice que la verdad depende de cada individuo. El relativismo dice que depende del contexto cultural, histórico y social. No es 'cada quien tiene su verdad', sino 'cada comunidad construye su realidad'."},
+        {q:"¿El relativismo impide hacer crítica social?", a:"No necesariamente. El relativismo moderado permite crítica situada: se puede criticar desde dentro de un sistema de valores, no desde un universal abstracto. Autores como Haraway proponen 'saberes situados' como alternativa."},
+        {q:"¿Cómo aplico esto en mi PSIET?", a:"Pregúntate: ¿estoy imponiendo categorías biomédicas sin escuchar las narrativas de mis sujetos? El relativismo te invita a co-construir el conocimiento con ellos, no a imponer tu mirada."},
+        {q:"¿Qué autores leer primero?", a:"Geertz (Descripción densa) para etnografía; Garfinkel (Estudios en etnometodología) y Blumer (El interaccionismo simbólico). Para aplicación en salud: Kleinman y Nicholls."},
+        {q:"¿Qué hago si no entiendo una columna?", a:"Usa el botón '🎓 Ejemplo completo' para ver un modelo. Luego modifica ese contenido con tu propia voz y tu PSIET."}
+    ];
+    let html = "";
+    for(let f of faqs) {
+        html += `<div style="margin-bottom:20px;"><strong>❓ ${f.q}</strong><p style="margin-top:8px; background:#f8f9fa; padding:12px; border-radius:12px;">${f.a}</p></div>`;
+    }
+    container.innerHTML = html;
+}
+
+// ========== CHAT P2P ==========
+let peer, conn;
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+
+function addMessage(sender, text) {
+    let msgDiv = document.createElement("div");
+    msgDiv.className = "message";
+    msgDiv.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function setupConnection(connection) {
+    conn = connection;
+    conn.on('data', (data) => addMessage("Otro grupo", data));
+    conn.on('close', () => {
+        document.getElementById("connectionStatus").innerHTML = "⚪ Desconectado";
+        addMessage("Sistema", "🔌 Se perdió la conexión");
+    });
+    document.getElementById("sendChatBtn").onclick = () => {
+        let msg = chatInput.value.trim();
+        if(msg && conn && conn.open) {
+            conn.send(msg);
+            addMessage("Mi grupo", msg);
+            chatInput.value = "";
+        } else { alert("Sin conexión activa. Conecta primero con otro grupo."); }
+    };
+}
+
+function initPeer() {
+    peer = new Peer();
+    peer.on('open', (id) => {
+        document.getElementById("myPeerId").innerText = id;
+        document.getElementById("connectionStatus").innerHTML = "🟢 Esperando conexión. Comparte tu ID.";
+    });
+    peer.on('connection', (incomingConn) => {
+        setupConnection(incomingConn);
+        document.getElementById("connectionStatus").innerHTML = "🟢 Conectado a otro grupo";
+        addMessage("Sistema", "🔗 Conexión establecida con otro grupo.");
+    });
+    peer.on('error', (err) => {
+        console.log("Peer error:", err);
+        document.getElementById("connectionStatus").innerHTML = "🔴 Error - recarga la página si persiste";
+    });
+}
+
+document.getElementById("connectBtn")?.addEventListener("click", () => {
+    let remoteId = document.getElementById("remotePeerId").value.trim();
+    if(remoteId) {
+        let newConn = peer.connect(remoteId);
+        newConn.on('open', () => {
+            setupConnection(newConn);
+            document.getElementById("connectionStatus").innerHTML = "🟢 Conectado exitosamente";
+            addMessage("Sistema", "✅ Conectado exitosamente.");
+        });
+        newConn.on('error', () => alert("No se pudo conectar. Verifica el ID."));
+    } else { alert("Ingresa un ID válido"); }
+});
+
+// ========== PESTAÑAS ==========
+document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        let tabId = btn.getAttribute("data-tab");
+        document.querySelectorAll(".tab-contenido").forEach(t => t.classList.remove("activa"));
+        document.getElementById(tabId).classList.add("activa");
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("activa"));
+        btn.classList.add("activa");
+        if(tabId === "tab-autoevaluacion") cargarAutoevaluacionUI();
+        if(tabId === "tab-psiet") cargarPSIETUI();
+        if(tabId === "tab-faq") cargarFAQ();
+        if(tabId === "tab-checklist") cargarChecklistUI();
+    });
+});
+
+// ========== EVENTOS E INICIALIZACIÓN ==========
+document.addEventListener("input", (e) => {
+    if(e.target && e.target.getAttribute("contenteditable") === "true") guardarTodo();
+    if(e.target.id === "pnfInput" || e.target.id === "integrantesInput" || e.target.id === "referenciasAPA") guardarTodo();
+});
+grupoSelect.addEventListener("change", () => cargarStorage());
+
+// Asignar eventos a los botones
+document.getElementById("exportarAPA")?.addEventListener("click", exportarAPA);
+document.getElementById("exportarBackup")?.addEventListener("click", exportarBackup);
+document.getElementById("importarBackup")?.addEventListener("click", importarBackup);
+document.getElementById("limpiarTodo")?.addEventListener("click", () => limpiarCeldas(false));
+document.getElementById("ejemploDocente")?.addEventListener("click", cargarEjemploCompleto);
+document.getElementById("sugerirIA")?.addEventListener("click", sugerirIA);
+document.getElementById("guardarAutoevaluacion")?.addEventListener("click", guardarAutoevaluacion);
+document.getElementById("guardarRespuestasPSIET")?.addEventListener("click", guardarRespuestasPSIET);
+document.getElementById("guardarChecklist")?.addEventListener("click", guardarChecklist);
+document.getElementById("reiniciarChecklist")?.addEventListener("click", reiniciarChecklist);
+
+// Inicialización completa
+construirTabla();
+cargarStorage();
+cargarFAQ();
+initPeer();
+</script>
+</body>
+</html>
